@@ -1,0 +1,90 @@
+<script lang="ts">
+	import Player from '@vimeo/player';
+
+	let vimeoDiv: HTMLDivElement;
+	let vimeoPlayer: Player;
+	let videoHasLoaded: boolean = false;
+
+	let vimeoId: string = '';
+
+	const reloadPlayer = async () => {
+		if (vimeoDiv == null || vimeoId === '') {
+			return;
+		}
+
+		// se ja esta com o vimeo setado, destroi e carrega de novo
+		if (vimeoPlayer != null) {
+			await vimeoPlayer.destroy();
+			videoHasLoaded = false;
+		}
+
+		try {
+			const vimeoOptions: any = {
+				responsive: true,
+				color: '9358fa',
+				title: false
+			};
+
+			// if it starts with https then we set on url, not on id
+			if (vimeoId.startsWith('https://')) {
+				vimeoOptions.url = vimeoId;
+			} else {
+				vimeoOptions.id = vimeoId;
+			}
+
+			vimeoPlayer = new Player(vimeoDiv, vimeoOptions);
+
+			vimeoPlayer.on('loaded', (event: any) => {
+				console.log('loaded', event);
+				videoHasLoaded = true;
+			});
+
+			vimeoPlayer.on('error', (event: any) => {
+				console.log('error', event);
+				videoHasLoaded = true;
+			});
+
+			vimeoPlayer.on('timeupdate', (event: any) => {
+				console.log('timeupdate', event);
+			});
+
+			vimeoPlayer.on('seeked', (event: any) => {
+				console.log('seeked', event);
+			});
+
+			vimeoPlayer.on('play', (event: any) => {
+				console.log('play', event);
+			});
+
+			vimeoPlayer.on('pause', (event: any) => {
+				console.log('pause', event);
+			});
+		} catch (error) {
+			console.error(error);
+		}
+	};
+</script>
+
+<main class="w-full max-w-screen-lg mx-auto mt-3">
+	<h1 class="font-bold text-xl">Vimeo Player iOS Issue</h1>
+
+	<p class="text-slate-500 my-3">Add the vimeo ID or URL below:</p>
+
+	<fielset class="inline-flex items-center space-x-3 mb-3">
+		<input type="text" bind:value={vimeoId} class="rounded-lg" />
+		<button
+			on:click={reloadPlayer}
+			disabled={vimeoId === ''}
+			class="bg-emerald-600 active:bg-emerald-700 transition-all disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-emerald-600/50 text-white rounded-lg font-bold p-2"
+		>
+			Reload player
+		</button>
+	</fielset>
+
+	<div
+		bind:this={vimeoDiv}
+		class="{!videoHasLoaded
+			? 'h-44 animate-pulse rounded-lg bg-slate-200 md:h-96'
+			: ''} w-full max-w-full"
+	/>
+</main>

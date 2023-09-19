@@ -12,7 +12,7 @@
 			return;
 		}
 
-		// se ja esta com o vimeo setado, destroi e carrega de novo
+		// if player is already loaded, destroy and load it again
 		if (vimeoPlayer != null) {
 			await vimeoPlayer.destroy();
 			videoHasLoaded = false;

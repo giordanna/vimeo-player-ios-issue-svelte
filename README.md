@@ -1,4 +1,4 @@
-# Vimeo- Player iOS Issue
+# Vimeo Player iOS Issue
 
 Run alongside a Flutter Project, with this as the main.dart: https://gist.github.com/giordanna/938ee0c301a19a0068d03ca29ace2300
 

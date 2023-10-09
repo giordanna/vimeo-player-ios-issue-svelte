@@ -35,32 +35,32 @@
 			vimeoPlayer = new Player(vimeoDiv, vimeoOptions);
 
 			vimeoPlayer.on('loaded', (event: any) => {
-				console.log('loaded', event);
+				console.log('============= loaded', JSON.stringify(event));
 				videoHasLoaded = true;
 			});
 
 			vimeoPlayer.on('error', (event: any) => {
-				console.log('error', event);
+				console.log('============= error', JSON.stringify(event));
 				videoHasLoaded = true;
 			});
 
 			vimeoPlayer.on('timeupdate', (event: any) => {
-				console.log('timeupdate', event);
+				console.log('============= timeupdate', JSON.stringify(event));
 			});
 
 			vimeoPlayer.on('seeked', (event: any) => {
-				console.log('seeked', event);
+				console.log('============= seeked', JSON.stringify(event));
 			});
 
 			vimeoPlayer.on('play', (event: any) => {
-				console.log('play', event);
+				console.log('============= play', JSON.stringify(event));
 			});
 
 			vimeoPlayer.on('pause', (event: any) => {
-				console.log('pause', event);
+				console.log('============= pause', JSON.stringify(event));
 			});
 		} catch (error) {
-			console.error(error);
+			console.error('========= error 2', JSON.stringify(error));
 		}
 	};
 </script>
